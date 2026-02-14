@@ -32,9 +32,9 @@
       <article class="card span2 tabPane active" id="tabRegister">
         <div class="cardHead">
           <h2>Create Resident Account</h2>
-          <span class="pill blue">Firebase Auth</span>
+          <span class="pill">Firebase Auth</span>
         </div>
-        <p class="muted">Register using email and password. After registration, you are logged in automatically.</p>
+        <p class="muted">Register using email/password. You’ll be logged in after registration.</p>
 
         <form id="residentSignupForm" class="form">
           <div class="row">
@@ -60,27 +60,18 @@
           </div>
 
           <button class="btn" type="submit">Register</button>
-          <div id="rRegMsg" class="msg"></div>
-
-          <div class="item">
-            <div class="muted small">
-              Note: Name/Address are for UI only (no Firestore/database saved).
-            </div>
-          </div>
         </form>
       </article>
 
       <article class="card span2 tabPane" id="tabResidentDash">
         <div class="cardHead">
           <h2>Resident Dashboard</h2>
-          <span class="pill green">Logged Session</span>
+          <span class="pill">Session</span>
         </div>
-
-        <p class="muted">This dashboard confirms resident login. (Next: add features if needed.)</p>
 
         <div class="item">
           <div class="muted small">Status</div>
-          <div id="residentStatusText" style="font-weight:850;font-size:18px;">Checking session…</div>
+          <div id="residentStatusText" style="font-weight:900;font-size:18px;">Checking session…</div>
         </div>
       </article>
     </section>
@@ -90,6 +81,20 @@
       <span class="muted">Resident Portal • No Firestore</span>
     </footer>
   </main>
+
+  <!-- Modal -->
+  <div class="modalOverlay" id="modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modalTop">
+        <div class="modalTitle" id="modalTitle">Notice</div>
+        <button class="xBtn" id="modalClose" aria-label="Close">✕</button>
+      </div>
+      <div class="modalMsg" id="modalMsg">Message here</div>
+      <div class="modalActions">
+        <button class="btn ghost" id="modalOk">OK</button>
+      </div>
+    </div>
+  </div>
 
   <script type="module" src="assets/app.js"></script>
 </body>
