@@ -9,16 +9,15 @@ import {
 const $ = (id) => document.getElementById(id);
 const page = location.pathname.split("/").pop() || "index.html";
 
-// Footer year
+// Year
 const yearEl = $("year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 // Tabs
-function initTabs(){
+(function initTabs(){
   const tabs = document.querySelectorAll(".tab");
   const panes = document.querySelectorAll(".tabPane");
   if (!tabs.length || !panes.length) return;
-
   tabs.forEach(btn => {
     btn.addEventListener("click", () => {
       tabs.forEach(t => t.classList.remove("active"));
@@ -29,10 +28,33 @@ function initTabs(){
       if (pane) pane.classList.add("active");
     });
   });
-}
-initTabs();
+})();
 
-// -------------------- ADMIN (prototype hardcoded) --------------------
+// Modal helpers (center popup)
+function showModal(title, message){
+  const overlay = $("modal");
+  if (!overlay) return;
+  const t = $("modalTitle");
+  const m = $("modalMsg");
+  if (t) t.textContent = title || "Notice";
+  if (m) m.textContent = message || "";
+  overlay.classList.add("show");
+}
+function hideModal(){
+  const overlay = $("modal");
+  if (!overlay) return;
+  overlay.classList.remove("show");
+}
+const modalClose = $("modalClose");
+const modalOk = $("modalOk");
+if (modalClose) modalClose.addEventListener("click", hideModal);
+if (modalOk) modalOk.addEventListener("click", hideModal);
+const modal = $("modal");
+if (modal) modal.addEventListener("click", (e) => {
+  if (e.target === modal) hideModal();
+});
+
+// Admin (prototype hardcoded)
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "admin";
 const ADMIN_SESSION_KEY = "waste_admin_ok";
@@ -55,16 +77,15 @@ if (adminLoginForm) {
 
     if (u === ADMIN_USER && p === ADMIN_PASS) {
       setAdminSession(true);
-      $("aLoginMsg").textContent = "Admin login successful ✅";
       location.href = "admin.html";
     } else {
       setAdminSession(false);
-      $("aLoginMsg").textContent = "Invalid admin credentials.";
+      showModal("Wrong Credentials", "You entered an incorrect admin username or password. Please try again.");
     }
   });
 }
 
-// Admin dashboard guard
+// Guard admin dashboard
 if (page === "admin.html") {
   if (!isAdminSession()) {
     location.href = "index.html";
@@ -77,29 +98,24 @@ if (page === "admin.html") {
 // Admin logout
 const adminLogoutBtn = $("adminLogoutBtn");
 if (adminLogoutBtn) {
-  adminLogoutBtn.addEventListener("click", async () => {
+  adminLogoutBtn.addEventListener("click", () => {
     setAdminSession(false);
     location.href = "index.html";
   });
 }
-
-// -------------------- RESIDENT (Firebase Auth) --------------------
 
 // Resident login (index.html)
 const residentLoginForm = $("residentLoginForm");
 if (residentLoginForm) {
   residentLoginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const msg = $("rLoginMsg");
-    msg.textContent = "Logging in...";
     try {
       const email = $("rEmailLogin").value.trim();
       const pass = $("rPassLogin").value;
       await signInWithEmailAndPassword(auth, email, pass);
-      msg.textContent = "Login successful ✅";
       location.href = "resident.html";
     } catch (err) {
-      msg.textContent = err.message;
+      showModal("Wrong Credentials", "Incorrect resident email or password. Please try again.");
     }
   });
 }
@@ -109,25 +125,15 @@ const residentSignupForm = $("residentSignupForm");
 if (residentSignupForm) {
   residentSignupForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const msg = $("rRegMsg");
-    msg.textContent = "Creating account...";
     try {
       const email = $("rEmailReg").value.trim();
       const pass = $("rPassReg").value;
-
-      // Optional: prevent admin email use
-      if (email.toLowerCase() === "admin@waste.local") {
-        throw new Error("This email is reserved.");
-      }
-
       await createUserWithEmailAndPassword(auth, email, pass);
-
-      msg.textContent = "Registered ✅ You are now logged in.";
-      // Switch to Dashboard tab if present
+      showModal("Registration Successful", "Your account has been created. You are now logged in.");
       const dashTab = document.querySelector('.tab[data-tab="tabResidentDash"]');
       if (dashTab) dashTab.click();
     } catch (err) {
-      msg.textContent = err.message;
+      showModal("Registration Failed", err.message);
     }
   });
 }
@@ -141,7 +147,7 @@ if (residentLogoutBtn) {
   });
 }
 
-// Resident page guard + status
+// Guard resident page
 if (page === "resident.html") {
   onAuthStateChanged(auth, (user) => {
     if (!user) {
@@ -150,12 +156,5 @@ if (page === "resident.html") {
     }
     const el = $("residentStatusText");
     if (el) el.textContent = `Logged in as RESIDENT (${user.email}) ✅`;
-  });
-}
-
-// Home page: if already logged in as resident, optionally show a hint (no redirect forced)
-if (page === "index.html") {
-  onAuthStateChanged(auth, (user) => {
-    // Keep it simple; no auto redirect
   });
 }
