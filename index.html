@@ -12,9 +12,10 @@
       <div class="logo"></div>
       <div class="brandText">
         <div class="title">Sustainable Waste Collection & Management</div>
-        <div class="subtitle">Professional • Blue/Green • Responsive</div>
+        <div class="subtitle">Light Blue/Green • Professional</div>
       </div>
     </div>
+
     <nav class="topActions">
       <a class="btn ghost" href="resident.html">Resident Register</a>
     </nav>
@@ -31,7 +32,7 @@
       <article class="card span2 tabPane active" id="tabResidentLogin">
         <div class="cardHead">
           <h2>Resident Sign In</h2>
-          <span class="pill blue">Firebase Auth</span>
+          <span class="pill">Firebase Auth</span>
         </div>
         <p class="muted">Residents log in using their email and password.</p>
 
@@ -48,12 +49,9 @@
           </div>
 
           <button class="btn" type="submit">Login as Resident</button>
-          <div id="rLoginMsg" class="msg"></div>
 
           <div class="item">
-            <div class="muted small">
-              No account yet? Click <b>Resident Register</b> on the top right.
-            </div>
+            <div class="muted small">No account yet? Click <b>Resident Register</b> on top right.</div>
           </div>
         </form>
       </article>
@@ -62,9 +60,9 @@
       <article class="card span2 tabPane" id="tabAdminLogin">
         <div class="cardHead">
           <h2>Admin Sign In</h2>
-          <span class="pill green">Prototype Admin</span>
+          <span class="pill">Prototype Admin</span>
         </div>
-        <p class="muted">Admin uses a fixed username/password (school prototype).</p>
+        <p class="muted">Admin uses a fixed username/password for prototype use.</p>
 
         <form id="adminLoginForm" class="form">
           <div class="row">
@@ -79,11 +77,10 @@
           </div>
 
           <button class="btn" type="submit">Login as Admin</button>
-          <div id="aLoginMsg" class="msg"></div>
 
           <div class="item">
             <div class="muted small">
-              Default: <b>user = admin</b> and <b>password = admin</b>
+              Admin credentials: <b>user = admin</b>, <b>password = admin</b>
             </div>
           </div>
         </form>
@@ -95,6 +92,22 @@
       <span class="muted">GitHub Pages • Firebase Auth (Residents) • No Firestore</span>
     </footer>
   </main>
+
+  <!-- CENTER POPUP MODAL -->
+  <div class="modalOverlay" id="modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modalTop">
+        <div>
+          <div class="modalTitle" id="modalTitle">Notice</div>
+        </div>
+        <button class="xBtn" id="modalClose" aria-label="Close">✕</button>
+      </div>
+      <div class="modalMsg" id="modalMsg">Message here</div>
+      <div class="modalActions">
+        <button class="btn ghost" id="modalOk">OK</button>
+      </div>
+    </div>
+  </div>
 
   <script type="module" src="assets/app.js"></script>
 </body>
