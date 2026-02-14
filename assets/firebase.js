@@ -5,12 +5,13 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/10.14.1/firebas
 
 // TODO: paste your Firebase config from Firebase Console → Project settings → Your apps
 const firebaseConfig = {
-  apiKey: "PASTE_HERE",
-  authDomain: "PASTE_HERE",
-  projectId: "PASTE_HERE",
-  storageBucket: "PASTE_HERE",
-  messagingSenderId: "PASTE_HERE",
-  appId: "PASTE_HERE"
+  apiKey: "AIzaSyDBlM0r0Q5j9fPJaCX0X5lz77umYQ4GFF0",
+  authDomain: "waste-management-6b634.firebaseapp.com",
+  projectId: "waste-management-6b634",
+  storageBucket: "waste-management-6b634.firebasestorage.app",
+  messagingSenderId: "752464336479",
+  appId: "1:752464336479:web:132ad8ec5254901ad92dea",
+  measurementId: "G-C3CTZL55HK"
 };
 
 export const app = initializeApp(firebaseConfig);
