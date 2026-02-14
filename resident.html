@@ -18,106 +18,79 @@
 
     <nav class="topActions">
       <a class="btn ghost" href="index.html">Back to Login</a>
-      <button class="btn ghost" id="logoutBtn">Logout</button>
+      <button class="btn ghost" id="residentLogoutBtn">Logout</button>
     </nav>
   </header>
 
   <main class="shell">
     <section class="tabs">
-      <button class="tab active" data-tab="tabAccount">Account</button>
-      <button class="tab" data-tab="tabDashboard">Dashboard</button>
-      <button class="tab" data-tab="tabHelp">Help</button>
+      <button class="tab active" data-tab="tabRegister">Register</button>
+      <button class="tab" data-tab="tabResidentDash">Dashboard</button>
     </section>
 
     <section class="grid">
-      <!-- ACCOUNT TAB -->
-      <article class="card span2 tabPane active" id="tabAccount">
+      <article class="card span2 tabPane active" id="tabRegister">
         <div class="cardHead">
           <h2>Create Resident Account</h2>
-          <span class="pill green">Register</span>
+          <span class="pill blue">Firebase Auth</span>
         </div>
+        <p class="muted">Register using email and password. After registration, you are logged in automatically.</p>
 
-        <p class="muted">
-          Create your resident account using email and password.
-        </p>
-
-        <form id="signupForm" class="form">
+        <form id="residentSignupForm" class="form">
           <div class="row">
             <div class="field">
               <label>Full Name</label>
-              <input id="name" required placeholder="Juan Dela Cruz"/>
+              <input id="resName" placeholder="Juan Dela Cruz" required/>
             </div>
             <div class="field">
               <label>Address / Area</label>
-              <input id="address" required placeholder="Barangay / Sitio / Zone"/>
+              <input id="resAddress" placeholder="Barangay / Sitio / Zone" required/>
             </div>
           </div>
 
           <div class="row">
             <div class="field">
               <label>Email</label>
-              <input id="rEmail" type="email" required placeholder="you@example.com"/>
+              <input id="rEmailReg" type="email" placeholder="you@example.com" required/>
             </div>
             <div class="field">
               <label>Password</label>
-              <input id="rPass" type="password" required placeholder="Min 6 characters"/>
+              <input id="rPassReg" type="password" placeholder="Min 6 characters" required/>
             </div>
           </div>
 
           <button class="btn" type="submit">Register</button>
-          <div id="signupMsg" class="msg"></div>
+          <div id="rRegMsg" class="msg"></div>
+
+          <div class="item">
+            <div class="muted small">
+              Note: Name/Address are for UI only (no Firestore/database saved).
+            </div>
+          </div>
         </form>
       </article>
 
-      <!-- DASHBOARD TAB -->
-      <article class="card span2 tabPane" id="tabDashboard">
+      <article class="card span2 tabPane" id="tabResidentDash">
         <div class="cardHead">
           <h2>Resident Dashboard</h2>
-          <span class="pill">Status</span>
+          <span class="pill green">Logged Session</span>
         </div>
 
-        <div class="split">
-          <div class="panel">
-            <div class="panelTitle">Session</div>
-            <div id="residentStatus" class="big">Checking session…</div>
-            <div class="muted small">
-              Next step: add schedules + report submission (Firestore).
-            </div>
-          </div>
-
-          <div class="panel">
-            <div class="panelTitle">Navigation Tips</div>
-            <ul class="muted small">
-              <li>Use the tabs to switch sections.</li>
-              <li>Logout button is always available on top.</li>
-              <li>Works on mobile, tablet, laptop, and large screens.</li>
-            </ul>
-          </div>
-        </div>
-      </article>
-
-      <!-- HELP TAB -->
-      <article class="card span2 tabPane" id="tabHelp">
-        <div class="cardHead">
-          <h2>Help</h2>
-          <span class="pill blue">Guide</span>
-        </div>
+        <p class="muted">This dashboard confirms resident login. (Next: add features if needed.)</p>
 
         <div class="item">
-          <b>Resident flow:</b> Register → Auto login → Open Dashboard tab.
-        </div>
-        <div class="item">
-          <b>If login fails:</b> check email/password and ensure Email/Password sign-in is enabled in Firebase.
+          <div class="muted small">Status</div>
+          <div id="residentStatusText" style="font-weight:850;font-size:18px;">Checking session…</div>
         </div>
       </article>
     </section>
 
     <footer class="footer">
       <span>© <span id="year"></span> Waste Management System</span>
-      <span class="muted">Resident Portal</span>
+      <span class="muted">Resident Portal • No Firestore</span>
     </footer>
   </main>
 
-  <script type="module" src="assets/auth.js"></script>
+  <script type="module" src="assets/app.js"></script>
 </body>
 </html>
