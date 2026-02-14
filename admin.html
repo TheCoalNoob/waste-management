@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin | Waste System</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Waste System • Admin</div>
+    <button id="logoutBtn" class="ghost">Logout</button>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <h2>Create Schedule</h2>
+      <form id="scheduleForm" class="stack">
+        <input id="schArea" placeholder="Area / Zone" required />
+        <input id="schDate" type="date" required />
+        <input id="schType" placeholder="Waste type (e.g., Biodegradable)" required />
+        <input id="schNotes" placeholder="Notes (optional)" />
+        <button type="submit">Save Schedule</button>
+        <p id="schMsg" class="msg"></p>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h2>All Requests</h2>
+      <div id="allRequests" class="list"></div>
+    </section>
+  </main>
+
+  <script type="module" src="assets/app.js"></script>
+</body>
+</html>
