@@ -1,57 +1,71 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Resident | Waste System</title>
-  <link rel="stylesheet" href="assets/styles.css" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Resident • Waste System</title>
+  <link rel="stylesheet" href="assets/styles.css"/>
 </head>
 <body>
   <header class="topbar">
-    <div class="brand">Waste System</div>
-    <button id="logoutBtn" class="ghost">Logout</button>
+    <div class="brand">
+      <div class="logo"></div>
+      <div>
+        <div class="title">Waste Management System</div>
+        <div class="subtitle">Resident</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <a class="btn ghost" href="index.html">Back to Login</a>
+      <button class="btn ghost" id="logoutBtn">Logout</button>
+    </div>
   </header>
 
-  <main class="layout">
-    <section class="panel">
-      <h2>Resident Signup</h2>
-      <form id="signupForm" class="stack">
-        <input id="rName" placeholder="Full name" required />
-        <input id="rAddress" placeholder="Address / Area" required />
-        <input id="rEmail" type="email" placeholder="Email" required />
-        <input id="rPass" type="password" placeholder="Password" required />
-        <button type="submit">Create account</button>
-        <p id="signupMsg" class="msg"></p>
-      </form>
-    </section>
+  <main class="shell">
+    <section class="grid">
+      <article class="card">
+        <h2>Create Resident Account</h2>
+        <p class="muted">Register using email/password. (After register, you stay logged in.)</p>
 
-    <section class="panel">
-      <h2>Submit Waste Request</h2>
-      <form id="requestForm" class="stack">
-        <select id="reqType" required>
-          <option value="">Select type</option>
-          <option>Uncollected Waste</option>
-          <option>Missed Schedule</option>
-          <option>Illegal Dumping</option>
-          <option>Other</option>
-        </select>
-        <textarea id="reqDesc" placeholder="Describe the issue..." rows="4" required></textarea>
-        <button type="submit">Submit</button>
-        <p id="reqMsg" class="msg"></p>
-      </form>
-    </section>
+        <form id="signupForm" class="form">
+          <div class="row">
+            <div class="field">
+              <label>Full Name</label>
+              <input id="name" required placeholder="Juan Dela Cruz"/>
+            </div>
+            <div class="field">
+              <label>Address / Area</label>
+              <input id="address" required placeholder="Barangay / Sitio / Zone"/>
+            </div>
+          </div>
 
-    <section class="panel">
-      <h2>Your Requests</h2>
-      <div id="myRequests" class="list"></div>
-    </section>
+          <div class="row">
+            <div class="field">
+              <label>Email</label>
+              <input id="rEmail" type="email" required placeholder="you@example.com"/>
+            </div>
+            <div class="field">
+              <label>Password</label>
+              <input id="rPass" type="password" required placeholder="Min 6 characters"/>
+            </div>
+          </div>
 
-    <section class="panel">
-      <h2>Collection Schedules</h2>
-      <div id="schedules" class="list"></div>
+          <button class="btn" type="submit">Register</button>
+          <div id="signupMsg" class="msg"></div>
+        </form>
+      </article>
+
+      <article class="card">
+        <h2>Resident Dashboard</h2>
+        <p class="muted">Next we will add schedules + submit report here.</p>
+        <div class="item">
+          <div class="muted" style="font-size:12px;">Status</div>
+          <div id="residentStatus">Checking session…</div>
+        </div>
+      </article>
     </section>
   </main>
 
-  <script type="module" src="assets/app.js"></script>
+  <script type="module" src="assets/auth.js"></script>
 </body>
 </html>
