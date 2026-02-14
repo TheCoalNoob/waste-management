@@ -10,22 +10,36 @@
   <header class="topbar">
     <div class="brand">
       <div class="logo"></div>
-      <div>
+      <div class="brandText">
         <div class="title">Waste Management System</div>
-        <div class="subtitle">Resident</div>
+        <div class="subtitle">Resident Portal</div>
       </div>
     </div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+
+    <nav class="topActions">
       <a class="btn ghost" href="index.html">Back to Login</a>
       <button class="btn ghost" id="logoutBtn">Logout</button>
-    </div>
+    </nav>
   </header>
 
   <main class="shell">
+    <section class="tabs">
+      <button class="tab active" data-tab="tabAccount">Account</button>
+      <button class="tab" data-tab="tabDashboard">Dashboard</button>
+      <button class="tab" data-tab="tabHelp">Help</button>
+    </section>
+
     <section class="grid">
-      <article class="card">
-        <h2>Create Resident Account</h2>
-        <p class="muted">Register using email/password. (After register, you stay logged in.)</p>
+      <!-- ACCOUNT TAB -->
+      <article class="card span2 tabPane active" id="tabAccount">
+        <div class="cardHead">
+          <h2>Create Resident Account</h2>
+          <span class="pill green">Register</span>
+        </div>
+
+        <p class="muted">
+          Create your resident account using email and password.
+        </p>
 
         <form id="signupForm" class="form">
           <div class="row">
@@ -55,15 +69,53 @@
         </form>
       </article>
 
-      <article class="card">
-        <h2>Resident Dashboard</h2>
-        <p class="muted">Next we will add schedules + submit report here.</p>
+      <!-- DASHBOARD TAB -->
+      <article class="card span2 tabPane" id="tabDashboard">
+        <div class="cardHead">
+          <h2>Resident Dashboard</h2>
+          <span class="pill">Status</span>
+        </div>
+
+        <div class="split">
+          <div class="panel">
+            <div class="panelTitle">Session</div>
+            <div id="residentStatus" class="big">Checking session…</div>
+            <div class="muted small">
+              Next step: add schedules + report submission (Firestore).
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panelTitle">Navigation Tips</div>
+            <ul class="muted small">
+              <li>Use the tabs to switch sections.</li>
+              <li>Logout button is always available on top.</li>
+              <li>Works on mobile, tablet, laptop, and large screens.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- HELP TAB -->
+      <article class="card span2 tabPane" id="tabHelp">
+        <div class="cardHead">
+          <h2>Help</h2>
+          <span class="pill blue">Guide</span>
+        </div>
+
         <div class="item">
-          <div class="muted" style="font-size:12px;">Status</div>
-          <div id="residentStatus">Checking session…</div>
+          <b>Resident flow:</b> Register → Auto login → Open Dashboard tab.
+        </div>
+        <div class="item">
+          <b>If login fails:</b> check email/password and ensure Email/Password sign-in is enabled in Firebase.
         </div>
       </article>
     </section>
+
+    <footer class="footer">
+      <span>© <span id="year"></span> Waste Management System</span>
+      <span class="muted">Resident Portal</span>
+    </footer>
   </main>
 
   <script type="module" src="assets/auth.js"></script>
