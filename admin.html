@@ -1,33 +1,63 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Admin | Waste System</title>
-  <link rel="stylesheet" href="assets/styles.css" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Admin • Waste Management</title>
+  <link rel="stylesheet" href="assets/styles.css"/>
 </head>
 <body>
   <header class="topbar">
-    <div class="brand">Waste System • Admin</div>
-    <button id="logoutBtn" class="ghost">Logout</button>
+    <div class="brand">
+      <div class="logo"></div>
+      <div>
+        <div class="title">Waste Management System</div>
+        <div class="subtitle">Admin Panel (No-Auth Prototype)</div>
+      </div>
+    </div>
+
+    <nav class="top-actions">
+      <a class="btn ghost" href="index.html">Back to Dashboard</a>
+    </nav>
   </header>
 
-  <main class="layout">
-    <section class="panel">
-      <h2>Create Schedule</h2>
-      <form id="scheduleForm" class="stack">
-        <input id="schArea" placeholder="Area / Zone" required />
-        <input id="schDate" type="date" required />
-        <input id="schType" placeholder="Waste type (e.g., Biodegradable)" required />
-        <input id="schNotes" placeholder="Notes (optional)" />
-        <button type="submit">Save Schedule</button>
-        <p id="schMsg" class="msg"></p>
-      </form>
-    </section>
+  <main class="shell">
+    <section class="grid">
+      <article class="card">
+        <h2>Create Schedule</h2>
+        <form id="scheduleForm" class="form">
+          <div class="row">
+            <div class="field">
+              <label>Area</label>
+              <input id="sArea" placeholder="e.g., Zone 1 / Barangay ____" required/>
+            </div>
+            <div class="field">
+              <label>Date</label>
+              <input id="sDate" type="date" required/>
+            </div>
+          </div>
 
-    <section class="panel">
-      <h2>All Requests</h2>
-      <div id="allRequests" class="list"></div>
+          <div class="row">
+            <div class="field">
+              <label>Waste Type</label>
+              <input id="sType" placeholder="e.g., Biodegradable / Recyclable" required/>
+            </div>
+            <div class="field">
+              <label>Notes</label>
+              <input id="sNotes" placeholder="optional"/>
+            </div>
+          </div>
+
+          <button class="btn" type="submit">Publish Schedule</button>
+          <div id="scheduleMsg" class="msg"></div>
+        </form>
+      </article>
+
+      <article class="card span2">
+        <h2>Manage Reports</h2>
+        <p class="muted">Update status for public reports.</p>
+        <div id="adminReportList" class="list"></div>
+      </article>
     </section>
   </main>
 
