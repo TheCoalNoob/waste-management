@@ -10,28 +10,92 @@
   <header class="topbar">
     <div class="brand">
       <div class="logo"></div>
-      <div>
+      <div class="brandText">
         <div class="title">Waste Management System</div>
-        <div class="subtitle">Admin</div>
+        <div class="subtitle">Admin Panel</div>
       </div>
     </div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+
+    <nav class="topActions">
       <a class="btn ghost" href="index.html">Back to Login</a>
       <button class="btn ghost" id="logoutBtn">Logout</button>
-    </div>
+    </nav>
   </header>
 
   <main class="shell">
+    <section class="tabs">
+      <button class="tab active" data-tab="tabAdminHome">Home</button>
+      <button class="tab" data-tab="tabAdminTools">Tools</button>
+      <button class="tab" data-tab="tabAdminNotes">Notes</button>
+    </section>
+
     <section class="grid">
-      <article class="card span2">
-        <h2>Admin Dashboard</h2>
-        <p class="muted">Only the admin account can open this page (enforced by role check).</p>
+      <!-- HOME -->
+      <article class="card span2 tabPane active" id="tabAdminHome">
+        <div class="cardHead">
+          <h2>Admin Dashboard</h2>
+          <span class="pill green">Admin Only</span>
+        </div>
+
+        <div class="split">
+          <div class="panel">
+            <div class="panelTitle">Session</div>
+            <div id="adminStatus" class="big">Checking admin access…</div>
+            <div class="muted small">
+              Access is enforced by role check in Firestore users/{uid}.
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panelTitle">Quick Actions</div>
+            <div class="muted small">
+              Next step: add schedule posting + report management (Firestore).
+            </div>
+            <div class="actions">
+              <button class="btn" disabled>Publish Schedule</button>
+              <button class="btn ghost" disabled>Review Reports</button>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- TOOLS -->
+      <article class="card span2 tabPane" id="tabAdminTools">
+        <div class="cardHead">
+          <h2>Admin Tools</h2>
+          <span class="pill blue">Prototype</span>
+        </div>
+
         <div class="item">
-          <div class="muted" style="font-size:12px;">Status</div>
-          <div id="adminStatus">Checking admin access…</div>
+          Planned modules:
+          <ul class="muted small">
+            <li>Create/Edit Collection Schedules</li>
+            <li>Update Report Status (Pending → In Progress → Resolved)</li>
+            <li>Generate Area-based summaries</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- NOTES -->
+      <article class="card span2 tabPane" id="tabAdminNotes">
+        <div class="cardHead">
+          <h2>Admin Notes</h2>
+          <span class="pill">Info</span>
+        </div>
+
+        <div class="item">
+          Admin account is fixed for your prototype:
+          <div class="muted small">
+            Username: <b>admin</b> • Password: <b>admin</b> (Firebase email: admin@waste.local)
+          </div>
         </div>
       </article>
     </section>
+
+    <footer class="footer">
+      <span>© <span id="year"></span> Waste Management System</span>
+      <span class="muted">Admin Panel</span>
+    </footer>
   </main>
 
   <script type="module" src="assets/auth.js"></script>
