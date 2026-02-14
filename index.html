@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Sustainable Waste Collection & Management</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Waste Management • Login</title>
   <link rel="stylesheet" href="assets/styles.css"/>
 </head>
 <body>
@@ -11,80 +11,42 @@
     <div class="brand">
       <div class="logo"></div>
       <div>
-        <div class="title">Waste Management System</div>
-        <div class="subtitle">Public Dashboard</div>
+        <div class="title">Sustainable Waste Collection</div>
+        <div class="subtitle">Login</div>
       </div>
     </div>
-
-    <nav class="top-actions">
-      <a class="btn ghost" href="admin.html">Admin Panel</a>
-    </nav>
+    <a class="btn ghost" href="resident.html">Create Resident Account</a>
   </header>
 
   <main class="shell">
     <section class="grid">
-      <article class="card">
-        <h2>Collection Schedules</h2>
-        <p class="muted">Latest schedules posted by the barangay/LGU.</p>
-        <div id="scheduleList" class="list"></div>
-      </article>
+      <article class="card span2">
+        <h2>Sign In</h2>
+        <p class="muted">Residents use their email/password. Admin uses the fixed account.</p>
 
-      <article class="card">
-        <h2>Report an Issue</h2>
-        <p class="muted">Submit uncollected waste, missed schedule, or illegal dumping.</p>
-
-        <form id="reportForm" class="form">
+        <form id="loginForm" class="form">
           <div class="row">
             <div class="field">
-              <label>Area / Location</label>
-              <input id="area" placeholder="e.g., Sitio Sample, Barangay ____" required/>
+              <label>Email</label>
+              <input id="email" type="email" placeholder="you@example.com" required/>
             </div>
             <div class="field">
-              <label>Issue Type</label>
-              <select id="type" required>
-                <option value="">Select…</option>
-                <option>Uncollected Waste</option>
-                <option>Missed Schedule</option>
-                <option>Illegal Dumping</option>
-                <option>Overflowing Bin</option>
-                <option>Other</option>
-              </select>
+              <label>Password</label>
+              <input id="password" type="password" placeholder="••••••••" required/>
             </div>
           </div>
 
-          <div class="field">
-            <label>Description</label>
-            <textarea id="desc" rows="4" placeholder="Short details…" required></textarea>
-          </div>
+          <button class="btn" type="submit">Login</button>
+          <div id="msg" class="msg"></div>
 
-          <div class="row">
-            <div class="field">
-              <label>Contact (optional)</label>
-              <input id="contact" placeholder="Phone or email (optional)"/>
-            </div>
-            <div class="field">
-              <label>&nbsp;</label>
-              <button class="btn" type="submit">Submit Report</button>
-            </div>
-          </div>
-
-          <div id="reportMsg" class="msg"></div>
+          <p class="muted" style="margin:10px 0 0;font-size:12px;">
+            Admin login: email <b>admin@waste.local</b> password <b>admin</b>
+          </p>
         </form>
       </article>
-
-      <article class="card span2">
-        <h2>Recent Reports</h2>
-        <p class="muted">Public submissions. Status can be updated by admin.</p>
-        <div id="reportList" class="list"></div>
-      </article>
     </section>
-
-    <footer class="footer">
-      <span>© <span id="year"></span> Sustainable Waste Collection & Management System</span>
-      <span class="muted">Cross-platform • Responsive • Firebase-ready</span>
-    </footer>
   </main>
 
-  <script type="module" src="assets/app.js"></script>
+  <script type="module" src="assets/auth.js"></script>
 </body>
 </html>
