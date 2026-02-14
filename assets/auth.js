@@ -6,54 +6,83 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
-import { doc, setDoc, getDoc, serverTimestamp } from
-  "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import {
+  doc, setDoc, getDoc, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
 const $ = (id) => document.getElementById(id);
 const page = location.pathname.split("/").pop() || "index.html";
 
-// --- LOGIN ---
+// Footer year
+const yearEl = $("year");
+if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+// Tabs (works on resident/admin pages)
+function initTabs(){
+  const tabs = document.querySelectorAll(".tab");
+  const panes = document.querySelectorAll(".tabPane");
+  if (!tabs.length || !panes.length) return;
+
+  tabs.forEach(btn => {
+    btn.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      panes.forEach(p => p.classList.remove("active"));
+      btn.classList.add("active");
+      const target = btn.getAttribute("data-tab");
+      const pane = document.getElementById(target);
+      if (pane) pane.classList.add("active");
+    });
+  });
+}
+initTabs();
+
+// ---------- Login (index.html) ----------
 const loginForm = $("loginForm");
 if (loginForm) {
   loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    $("msg").textContent = "Logging in...";
+    const msg = $("msg");
+    msg.textContent = "Logging in...";
     try {
-      const email = $("email").value.trim();
+      // Admin uses username "admin" => map to admin@waste.local
+      let email = $("email").value.trim();
       const pass = $("password").value;
+
+      if (email.toLowerCase() === "admin") email = "admin@waste.local";
 
       const cred = await signInWithEmailAndPassword(auth, email, pass);
 
-      // Check role from Firestore
+      // Role-based redirect
       const snap = await getDoc(doc(db, "users", cred.user.uid));
       const role = snap.exists() ? snap.data().role : "resident";
 
       location.href = (role === "admin") ? "admin.html" : "resident.html";
     } catch (err) {
-      $("msg").textContent = err.message;
+      msg.textContent = err.message;
     }
   });
 }
 
-// --- REGISTER (RESIDENT) ---
+// ---------- Register (resident.html) ----------
 const signupForm = $("signupForm");
 if (signupForm) {
   signupForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    $("signupMsg").textContent = "Creating account...";
+    const msg = $("signupMsg");
+    msg.textContent = "Creating account...";
     try {
       const name = $("name").value.trim();
       const address = $("address").value.trim();
       const email = $("rEmail").value.trim();
       const pass = $("rPass").value;
 
-      // Prevent residents from using the admin email
       if (email.toLowerCase() === "admin@waste.local") {
         throw new Error("This email is reserved for admin.");
       }
 
       const cred = await createUserWithEmailAndPassword(auth, email, pass);
 
+      // Create resident profile doc
       await setDoc(doc(db, "users", cred.user.uid), {
         role: "resident",
         name,
@@ -61,39 +90,41 @@ if (signupForm) {
         createdAt: serverTimestamp()
       });
 
-      $("signupMsg").textContent = "Registered ✅ You are now logged in.";
+      msg.textContent = "Registered ✅ You are now logged in.";
     } catch (err) {
-      $("signupMsg").textContent = err.message;
+      msg.textContent = err.message;
     }
   });
 }
 
-// --- LOGOUT ---
+// ---------- Logout (resident/admin) ----------
 const logoutBtn = $("logoutBtn");
 if (logoutBtn) logoutBtn.addEventListener("click", () => signOut(auth));
 
-// --- PAGE GUARDS (protect resident/admin pages) ---
+// ---------- Guards + status text ----------
 onAuthStateChanged(auth, async (user) => {
   // index.html is public
   if (page === "index.html") return;
 
-  // must be logged in for resident/admin pages
+  // resident/admin pages require login
   if (!user) {
     location.href = "index.html";
     return;
   }
 
-  // role check
+  // get role from Firestore
   const snap = await getDoc(doc(db, "users", user.uid));
   const role = snap.exists() ? snap.data().role : "resident";
 
-  if (page === "admin.html") {
-    if (role !== "admin") location.href = "resident.html";
-    if ($("adminStatus")) $("adminStatus").textContent = `Logged in as ADMIN (${user.email}) ✅`;
-  }
+  // enforce correct page
+  if (page === "admin.html" && role !== "admin") location.href = "resident.html";
+  if (page === "resident.html" && role === "admin") location.href = "admin.html";
 
-  if (page === "resident.html") {
-    if (role === "admin") location.href = "admin.html";
-    if ($("residentStatus")) $("residentStatus").textContent = `Logged in as RESIDENT (${user.email}) ✅`;
+  // show status
+  if ($("residentStatus") && role !== "admin") {
+    $("residentStatus").textContent = `Logged in as RESIDENT (${user.email}) ✅`;
+  }
+  if ($("adminStatus") && role === "admin") {
+    $("adminStatus").textContent = `Logged in as ADMIN (${user.email}) ✅`;
   }
 });
