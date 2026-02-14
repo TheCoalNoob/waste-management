@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Admin • Waste Management</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Admin • Waste System</title>
   <link rel="stylesheet" href="assets/styles.css"/>
 </head>
 <body>
@@ -12,55 +12,28 @@
       <div class="logo"></div>
       <div>
         <div class="title">Waste Management System</div>
-        <div class="subtitle">Admin Panel (No-Auth Prototype)</div>
+        <div class="subtitle">Admin</div>
       </div>
     </div>
-
-    <nav class="top-actions">
-      <a class="btn ghost" href="index.html">Back to Dashboard</a>
-    </nav>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <a class="btn ghost" href="index.html">Back to Login</a>
+      <button class="btn ghost" id="logoutBtn">Logout</button>
+    </div>
   </header>
 
   <main class="shell">
     <section class="grid">
-      <article class="card">
-        <h2>Create Schedule</h2>
-        <form id="scheduleForm" class="form">
-          <div class="row">
-            <div class="field">
-              <label>Area</label>
-              <input id="sArea" placeholder="e.g., Zone 1 / Barangay ____" required/>
-            </div>
-            <div class="field">
-              <label>Date</label>
-              <input id="sDate" type="date" required/>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="field">
-              <label>Waste Type</label>
-              <input id="sType" placeholder="e.g., Biodegradable / Recyclable" required/>
-            </div>
-            <div class="field">
-              <label>Notes</label>
-              <input id="sNotes" placeholder="optional"/>
-            </div>
-          </div>
-
-          <button class="btn" type="submit">Publish Schedule</button>
-          <div id="scheduleMsg" class="msg"></div>
-        </form>
-      </article>
-
       <article class="card span2">
-        <h2>Manage Reports</h2>
-        <p class="muted">Update status for public reports.</p>
-        <div id="adminReportList" class="list"></div>
+        <h2>Admin Dashboard</h2>
+        <p class="muted">Only the admin account can open this page (enforced by role check).</p>
+        <div class="item">
+          <div class="muted" style="font-size:12px;">Status</div>
+          <div id="adminStatus">Checking admin access…</div>
+        </div>
       </article>
     </section>
   </main>
 
-  <script type="module" src="assets/app.js"></script>
+  <script type="module" src="assets/auth.js"></script>
 </body>
 </html>
